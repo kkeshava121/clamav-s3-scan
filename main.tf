@@ -120,7 +120,7 @@ resource "aws_s3_bucket" "buckets_to_scan" {
   count = length(var.buckets_to_scan)
 
   bucket = var.buckets_to_scan[count.index]
-  # other attributes...
+  
 }
 
 # -----------------------------
@@ -173,12 +173,18 @@ resource "aws_lambda_layer_version" "this" {
   source_code_hash = base64sha256("${path.module}/files/layer.zip")
 }
 
+data "archive_file" "zip_the_python" {
+type        = "zip"
+source_dir  = "${path.module}/files/codee/"
+output_path = "${path.module}/files/codee/code.zip"
+}
+ 
 resource "aws_lambda_function" "update_clamav_definitions" {
-  filename         = "${path.module}/files/code.zip"
+  filename         = "${path.module}/files/codee/code.zip"
   function_name    = local.clamav_update_name
   role             = aws_iam_role.update.arn
   handler          = var.update_handler
-  source_code_hash = base64sha256("${path.module}/files/code.zip")
+  source_code_hash = base64sha256("${path.module}/files/codee/")
   runtime          = var.lambda_runtime
   timeout          = var.lambda_timeout
   memory_size      = var.update_memory_size
@@ -192,12 +198,18 @@ resource "aws_lambda_function" "update_clamav_definitions" {
   }
 }
 
+data "archive_file" "zip_the_python_1" {
+type        = "zip"
+source_dir  = "${path.module}/files/codee/"
+output_path = "${path.module}/files/codee/code.zip"
+}
+ 
 resource "aws_lambda_function" "scan_file" {
-  filename         = "${path.module}/files/code.zip"
+  filename         = "${path.module}/files/codee/code.zip"
   function_name    = local.clamav_scan_name
   role             = aws_iam_role.scan.arn
   handler          = var.scan_handler
-  source_code_hash = base64sha256("${path.module}/files/code.zip")
+  source_code_hash = base64sha256("${path.module}/files/codee/")
   runtime          = var.lambda_runtime
   timeout          = var.lambda_timeout
   memory_size      = var.scan_memory_size

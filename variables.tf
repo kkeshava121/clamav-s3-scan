@@ -1,13 +1,13 @@
 variable "aws_region" {
   description = "A region the infrastructure will be deployed in."
   type        = string
-  default     = "us-east-1"
+  default     = "ap-south-1"
 }
 
 variable "buckets_to_scan" {
   description = "The buckets which need scanning."
   type        = list(string)
-  default     = ["scaninputbuckettt"]
+  default     = ["scaninputbucket"]
 }
 
 # -----------------------------
