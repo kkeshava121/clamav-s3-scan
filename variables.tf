@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "buckets_to_scan" {
   description = "The buckets which need scanning."
   type        = list(string)
-  default     = ["scaninputbucket"]
+  default     = ["clamavdemo-useast100"]
 }
 
 # -----------------------------
