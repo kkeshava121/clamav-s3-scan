@@ -1,7 +1,7 @@
 variable "aws_region" {
   description = "A region the infrastructure will be deployed in."
   type        = string
-  default     = "ap-south-1"
+  default     = "us-east-1"
 }
 
 variable "buckets_to_scan" {

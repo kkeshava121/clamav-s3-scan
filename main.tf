@@ -7,7 +7,7 @@ locals {
   clamav_scan_name          = "scan-bucket-file"
   clamav_definitions_bucket = "clamav-definitions"
   layer_name                = "clamav"
-  buckets_to_scan2           = "clamavdemo-apsouth1"
+  buckets_to_scan2           = "clamavdemo-useast100"
 }
 
 # -----------------------------
